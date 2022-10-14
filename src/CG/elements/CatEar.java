@@ -24,5 +24,6 @@ public class CatEar {
      public void draw(Graphics2D g){
           g.setColor(c);
           g.fillPolygon(new int [] {x1, x2, x3}, new int [] {y1, y2, y3}, 3);
+          g.fillPolygon(new int [] {x1+130, x2+110, x3+70}, new int [] {y1, y2, y3}, 3);
      }
 }

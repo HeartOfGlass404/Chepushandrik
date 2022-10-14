@@ -4,75 +4,73 @@ import CG.elements.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class DrawPanel extends JPanel {
+public class DrawPanel extends JPanel implements ActionListener {
+    Timer t = new Timer(15, this);
+    boolean flag=false;
     Sun s1;
     CatHead head;
-    CatEye eye1,eye2;
-    CatPupil pup1,pup2;
-    CatEar ear1,ear2;
+    CatEye eye;
+    CatPupil pup;
+    CatEar ear;
     CatNose nose;
-    CatMouth mouth1,mouth2;
+    CatMouth mouth;
+    CatBody body;
+    CatTail tail;
+    Grass grass;
+    public double angle=0.4;
+
     public DrawPanel() {
-        s1= new Sun(20, 20,50, 90, 15, Color.ORANGE);
+
+        t.start();
+        s1 = new Sun(20, 20,50, 90, 15, Color.ORANGE);
         head = new CatHead(300, 300,50, Color.DARK_GRAY);
-        eye1= new CatEye(280,290,15, Color.WHITE);
-        eye2= new CatEye(330,290,15, Color.WHITE);
-        pup1= new CatPupil(290, 280, 5, Color.BLACK);
-        pup2= new CatPupil(340, 280, 5, Color.BLACK);
-        ear1 = new CatEar(250,260,280,300,220,270,Color.DARK_GRAY);
-        ear2= new CatEar(380,370,350,300,220,270,Color.DARK_GRAY);
-        nose= new CatNose(305,315,325,310,320,310,Color.RED);
-        mouth1 = new CatMouth(315,320,10,0,90,Color.BLACK);
-        mouth2 = new CatMouth(270,320,10,0,90,Color.BLACK);
-        this.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                s1.setX(s1.getX()+100);
-                repaint();
-            }
+        eye = new CatEye(280,290,15, Color.WHITE);
+        pup = new CatPupil(290, 280, 5, Color.BLACK);
+        ear = new CatEar(250,260,280,300,220,270,Color.DARK_GRAY);
+        nose = new CatNose(305,315,325,310,320,310,Color.RED);
+        mouth =new CatMouth(295,310,20,Color.BLACK);
+        body = new CatBody(260,340,20,Color.DARK_GRAY);
+        grass = new Grass();
+        tail= new CatTail(360,450,480,350);
 
-            @Override
-            public void mousePressed(MouseEvent e) {
 
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
     }
+
 
     @Override
     public void paint(Graphics gr) {
         super.paint(gr);
         Graphics2D g = (Graphics2D) gr;
-
+        setBackground(Color.CYAN);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         s1.draw(g);
         head.draw(g);
-        eye1.draw(g);
-        eye2.draw(g);
-        pup1.draw(g);
-        pup2.draw(g);
-        ear1.draw(g);
-        ear2.draw(g);
+        eye.draw(g);
+        pup.draw(g);
+        ear.draw(g);
         nose.draw(g);
-        mouth1.draw(g);
-        mouth2.draw(g);
+        mouth.draw(g);
+        body.draw(g);
+        grass.draw(g);
+        g.rotate(angle, 360, 480);
+        tail.draw(g);
+        g.rotate(-angle, 360, 480);
 
+        if (angle > 0.8)
+            flag = true;
+        if (angle<0.4)
+            flag = false;
+        if (flag)
+            angle -= 0.02;
+        else angle += 0.02;
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
     }
 }

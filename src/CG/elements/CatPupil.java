@@ -19,6 +19,6 @@ public class CatPupil {
     public void draw(Graphics2D g) {
         g.setColor(c);
         g.fillOval(x - r, y - r, r + r, r + 25);
-
+        g.fillOval(x - r+50, y - r, r + r, r + 25);
     }
 }

@@ -3,6 +3,7 @@ package CG.elements;
 import java.awt.*;
 
 public class CatHead {
+
     private final int x;
     private final int y;
     private final int r;
@@ -20,4 +21,5 @@ public class CatHead {
         g.fillOval(x - r, y - r, r +80, r + r);
 
     }
+
 }
